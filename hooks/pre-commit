@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+#
+# Reject non-ASCII characters in staged text files.
+#
+# Enable in a fresh clone:  git config core.hooksPath hooks
+# Bypass once:              git commit --no-verify
+#
+# Checks the staged content (the index), not the working tree, so staging a
+# clean version of a dirty file passes as it should. Binary files are skipped.
+
+set -uo pipefail
+
+tmp="$(mktemp)"
+trap 'rm -f "$tmp"' EXIT
+
+# Tab is allowed. Everything outside printable ASCII is not.
+PATTERN='[^ -~	]'
+
+while IFS= read -r -d '' f; do
+  # grep -I reports no match for binary input, so this skips binaries.
+  git show ":$f" 2>/dev/null | LC_ALL=C grep -qI '' || continue
+  git show ":$f" 2>/dev/null \
+    | LC_ALL=C grep -n "$PATTERN" \
+    | sed "s|^|$f:|" >> "$tmp"
+done < <(git diff --cached --name-only --diff-filter=ACM -z)
+
+[ -s "$tmp" ] || exit 0
+
+count="$(wc -l < "$tmp" | tr -d ' ')"
+echo "pre-commit: non-ASCII found on $count staged line(s)." >&2
+echo >&2
+head -20 "$tmp" | sed 's|^|  |' >&2
+[ "$count" -gt 20 ] && echo "  ... and $((count - 20)) more" >&2
+echo >&2
+
+# Byte-wise matching would split a multi-byte character into garbage, so this
+# needs a UTF-8 aware pass. rg is in the Brewfile; fall back to a UTF-8 locale.
+if command -v rg >/dev/null 2>&1; then
+  chars="$(rg -o '[^\x00-\x7F]' "$tmp" --no-filename --no-line-number \
+           | sort -u | tr '\n' ' ')"
+else
+  chars="$(LC_ALL=en_US.UTF-8 grep -o "$PATTERN" "$tmp" 2>/dev/null \
+           | sort -u | tr '\n' ' ')"
+fi
+[ -n "${chars:-}" ] && echo "  Distinct characters: $chars" >&2
+
+echo >&2
+echo "  Replace them with ASCII, or bypass with: git commit --no-verify" >&2
+exit 1

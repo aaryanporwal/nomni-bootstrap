@@ -111,3 +111,20 @@ Everyone picks the change up by re-running the script. It is safe to re-run.
   ```
 
   `pyright` keeps working, and nvm goes back to controlling `node`.
+
+## Contributing
+
+Everything here is ASCII only. No em dashes, smart quotes or box-drawing
+characters. They break hand-typed grep patterns and render unpredictably in
+terminals and CI logs.
+
+A pre-commit hook enforces it. Git hooks do not travel with a clone, so enable
+it once after cloning:
+
+```bash
+git config core.hooksPath hooks
+```
+
+The hook checks staged content rather than the working tree, skips binary
+files, and prints each offending line plus the distinct characters it found.
+Bypass a single commit with `git commit --no-verify`.
