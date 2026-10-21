@@ -15,7 +15,7 @@ Both matter. Without step 2 your Claude Code will keep reaching for `grep` and
 ## Run it
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/REPLACE-ME/nomni-bootstrap/main/bootstrap.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/aaryanporwal/nomni-bootstrap/main/bootstrap.sh)"
 ```
 
 Takes about five minutes on a fresh machine, most of it Homebrew. You will be
@@ -29,7 +29,7 @@ the tab you ran it in.
 Fair. Nothing here is secret.
 
 ```bash
-git clone https://github.com/REPLACE-ME/nomni-bootstrap.git
+git clone https://github.com/aaryanporwal/nomni-bootstrap.git
 cd nomni-bootstrap
 less bootstrap.sh
 ./bootstrap.sh

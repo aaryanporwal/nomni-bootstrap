@@ -13,7 +13,7 @@
 
 set -euo pipefail
 
-REPO_URL="${NOMNI_BOOTSTRAP_REPO:-https://github.com/REPLACE-ME/nomni-bootstrap.git}"
+REPO_URL="${NOMNI_BOOTSTRAP_REPO:-https://github.com/aaryanporwal/nomni-bootstrap.git}"
 REPO_REF="${NOMNI_BOOTSTRAP_REF:-main}"
 
 # Commands that must exist when we are done. Formula names differ from command
@@ -240,7 +240,7 @@ if verify; then
 
   Done. Open a new terminal tab so the PATH change takes effect.
 
-  Read the brief:  https://github.com/REPLACE-ME/nomni-bootstrap
+  Read the brief:  https://github.com/aaryanporwal/nomni-bootstrap
   Re-check later:  ./bootstrap.sh --check
 
 DONE
