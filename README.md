@@ -5,8 +5,8 @@ your coding agents to use it.
 
 Two things get installed:
 
-1. **The tools** — 14 command-line programs, listed in [`Brewfile`](Brewfile).
-2. **The agent instructions** — [`AGENTS.md`](AGENTS.md), copied to `~/AGENTS.md`
+1. **The tools** - 14 command-line programs, listed in [`Brewfile`](Brewfile).
+2. **The agent instructions** - [`AGENTS.md`](AGENTS.md), copied to `~/AGENTS.md`
    and referenced from `~/.claude/CLAUDE.md`.
 
 Both matter. Without step 2 your Claude Code will keep reaching for `grep` and
@@ -74,9 +74,9 @@ Two habits worth forming on day one, because they are the ones people forget:
 
 Three files, all in this repo, kept deliberately in step:
 
-1. `Brewfile` — add the formula.
-2. `AGENTS.md` — add the rule, or agents will not use it.
-3. `README.md` — add a row to the table above.
+1. `Brewfile` - add the formula.
+2. `AGENTS.md` - add the rule, or agents will not use it.
+3. `README.md` - add a row to the table above.
 
 Then add the command name to `REQUIRED_COMMANDS` in `bootstrap.sh` so
 `--check` covers it. Formula names and command names differ sometimes, which is
@@ -102,8 +102,8 @@ Everyone picks the change up by re-running the script. It is safe to re-run.
 - **If you use nvm, read this.** Homebrew's `pyright` depends on Homebrew's
   `node`. Because `bootstrap.sh` puts `/opt/homebrew/bin` at the front of your
   PATH, that node will shadow your nvm node, and `node --version` will change
-  under you. `pyright` itself does not care — its shebang points straight at
-  `/opt/homebrew/opt/node/bin/node` — so the fix is to unlink the PATH symlink
+  under you. `pyright` itself does not care - its shebang points straight at
+  `/opt/homebrew/opt/node/bin/node` - so the fix is to unlink the PATH symlink
   and leave the install in place:
 
   ```bash

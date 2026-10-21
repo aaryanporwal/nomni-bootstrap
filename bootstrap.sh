@@ -9,7 +9,7 @@
 #   ./bootstrap.sh --check    verify only, change nothing (exit 1 on drift)
 #
 # Safe to re-run. Every step converges instead of duplicating work.
-# Written for macOS stock bash 3.2 — no associative arrays, no ${v,,}.
+# Written for macOS stock bash 3.2 - no associative arrays, no ${v,,}.
 
 set -euo pipefail
 
@@ -75,7 +75,7 @@ ensure_clt() {
     ok "already installed ($(xcode-select -p))"
     return 0
   fi
-  warn "not installed — opening Apple's installer"
+  warn "not installed - opening Apple's installer"
   xcode-select --install >/dev/null 2>&1 || true
   cat <<'MSG'
 
@@ -101,7 +101,7 @@ ensure_homebrew() {
   if [ -n "$prefix" ]; then
     ok "already installed ($prefix)"
   else
-    warn "not installed — installing (this asks for your password)"
+    warn "not installed - installing (this asks for your password)"
     NONINTERACTIVE=1 /bin/bash -c \
       "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
       || die "Homebrew install failed"
@@ -162,7 +162,7 @@ install_file() {
   else
     cp "$src" "$dest.new"
     warn "$dest exists and differs"
-    info "wrote $dest.new — merge it by hand, then delete the .new file"
+    info "wrote $dest.new - merge it by hand, then delete the .new file"
   fi
 }
 
@@ -245,5 +245,5 @@ if verify; then
 
 DONE
 else
-  die "some tools are missing — see above"
+  die "some tools are missing - see above"
 fi
