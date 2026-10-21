@@ -99,3 +99,15 @@ Everyone picks the change up by re-running the script. It is safe to re-run.
 - **`rg` can lie.** Claude Code injects an `rg` shell function pointing at its
   own bundled copy, so `command -v rg` can succeed on a machine with no ripgrep
   installed. `--check` insists on a real executable file for this reason.
+- **If you use nvm, read this.** Homebrew's `pyright` depends on Homebrew's
+  `node`. Because `bootstrap.sh` puts `/opt/homebrew/bin` at the front of your
+  PATH, that node will shadow your nvm node, and `node --version` will change
+  under you. `pyright` itself does not care — its shebang points straight at
+  `/opt/homebrew/opt/node/bin/node` — so the fix is to unlink the PATH symlink
+  and leave the install in place:
+
+  ```bash
+  brew unlink node
+  ```
+
+  `pyright` keeps working, and nvm goes back to controlling `node`.

@@ -26,3 +26,5 @@ brew "uv"         # uv, uvx — packages, envs, script running
 brew "ruff"       # ruff    — lint and format (replaces flake8/black/isort)
 brew "ty"         # ty      — type checking (Astral)
 brew "pyright"    # pyright — type checking (Microsoft)
+#                   NB: pulls Homebrew node as a dependency. If you use nvm,
+#                   see the nvm note in the README.
